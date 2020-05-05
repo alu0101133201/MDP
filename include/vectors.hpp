@@ -8,11 +8,15 @@
  * para trabajar con el problema MDP
  */
 
+#pragma once
 
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <string>
+#include <cfloat>
+#include <iterator>
+
 
 class vectors {
   private:
@@ -21,9 +25,17 @@ class vectors {
     int dimension;
   
   public:
+    vectors();
     vectors(std::string fileName);
     ~vectors();
 
     std::vector<std::vector<float>> getData();
+    int getSize();
+    int getDimension();
+    void setDimension(int dim);
+
+    void pushData(std::vector<float>);
+    void deleteData(int index);
+    std::vector<float> getSubvector(int i);
     std::ostream& write(std::ostream& os);
 };

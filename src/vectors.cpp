@@ -10,6 +10,11 @@
 
 #include "vectors.hpp"
 
+vectors::vectors() {
+  dimension = 0;
+  numberOfVectors = 0;
+}
+
 vectors::vectors(std::string fileName) {
   std::ifstream vectorsFile(fileName);
 
@@ -29,24 +34,52 @@ vectors::vectors(std::string fileName) {
      }
     data.push_back(auxVector);
    }
-
-  for (int i = 0; i < data.size(); i++) {
-    for (int j = 0; j < data[i].size(); j++) {
-      std::cout << data[i][j] << " ";
-    }
-    std::cout << "\n";
-  }
 }
 
-vectors::~vectors() {
-
-}
+vectors::~vectors() {}
 
 std::vector<std::vector<float>> vectors::getData() {
-
+  return (data);
 }
 
 
 std::ostream& vectors::write(std::ostream& os) {
+  for (int i = 0; i < data.size(); i++) {
+    for (int j = 0; j < data[i].size(); j++) {
+      os << data[i][j] << " ";
+    }
+    os << "\n";
+  }
+  os << "\n";
+  return os;
+}
 
+int vectors::getSize() {
+  return numberOfVectors;
+}
+
+int vectors::getDimension() {
+  return(dimension);
+}
+
+void vectors::setDimension(int dim) {
+  dimension = dim;
+}
+
+std::vector<float> vectors::getSubvector(int i) {
+  return data[i];
+}
+
+
+void vectors::pushData(std::vector<float> newVect) {
+  data.push_back(newVect);
+  numberOfVectors++;
+}
+
+
+void vectors::deleteData(int index) {
+  std::vector<std::vector<float>>::iterator iter = data.begin();
+  std::advance(iter, index);
+  numberOfVectors--;
+  data.erase(iter);
 }
