@@ -4,7 +4,7 @@
  * Universidad de La Laguna
  * 22-04-20
  * Fichero que implementa las clases que implementarán
- * el planteamiento constructivo voraz del algoritmo MDP
+ * el algoritmo constructivo voraz del algoritmo MDP
  */
 
 #include "constructiveGreedy.hpp"
