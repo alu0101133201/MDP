@@ -83,3 +83,7 @@ void vectors::deleteData(int index) {
   numberOfVectors--;
   data.erase(iter);
 }
+
+void vectors::setSubVector(std::vector<float> swapElement, int swapIndex) {
+  data[swapIndex] = swapElement;
+}

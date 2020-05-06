@@ -39,18 +39,11 @@ float ConstructiveGreedy::solve() {
   // std::cout << "\n";
 
   do {
-
     int indexOfFar = getFarPoint(currentCenter, myAuxData);
+
     bestSolution.pushData(myAuxData.getSubvector(indexOfFar));
     myAuxData.deleteData(indexOfFar);
-
-    // std::cout << "punto metido: \n";
-    // for (int i= 0; i < bestSolution.getDimension(); i++)
-    //   std::cout << bestSolution.getSubvector(x)[i] << " ";
-    // std::cout << "\n";
-
-
     currentCenter = getCenter(bestSolution);
-  } while (bestSolution.getSize() != stopNumber);
+  } while (bestSolution.getSize() < stopNumber);
   return (maxDiversity(bestSolution));
 }

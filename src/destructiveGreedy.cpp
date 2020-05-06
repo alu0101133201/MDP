@@ -40,7 +40,7 @@ float DestructiveGreedy::solve() {
     std::vector<float> currentCenter = getCenter(bestSolution);
 
     bestSolution.deleteData(getNearPoint(currentCenter, bestSolution));
-  } while (bestSolution.getSize() != stopNumber);
+  } while (bestSolution.getSize() < stopNumber);
   return (maxDiversity(bestSolution));
 
 }
