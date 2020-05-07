@@ -76,6 +76,11 @@ void vectors::pushData(std::vector<float> newVect) {
   numberOfVectors++;
 }
 
+void vectors::popData() {
+  data.pop_back();
+}
+
+
 
 void vectors::deleteData(int index) {
   std::vector<std::vector<float>>::iterator iter = data.begin();
@@ -86,4 +91,11 @@ void vectors::deleteData(int index) {
 
 void vectors::setSubVector(std::vector<float> swapElement, int swapIndex) {
   data[swapIndex] = swapElement;
+}
+
+void vectors::clear(void) {
+  for (int i = 0; i < data.size(); i++) {
+    data[i].clear();
+  }
+  data.clear();
 }

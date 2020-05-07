@@ -38,6 +38,7 @@ class MDP {
 
     float maxDiversity(vectors myVectors);
     float diversityFromVal(vectors, std::vector<float>, std::vector<float>, float);
+    float diversityFromAdd(vectors, std::vector<float>, float);
 
     // Método principal de resolución
     virtual float solve() = 0;

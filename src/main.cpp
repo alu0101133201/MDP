@@ -16,14 +16,14 @@ int main(int argc, char *argv[]) {
     vectors prueba(fileName);
     ConstructiveGreedy constGred(prueba, 3);
     DestructiveGreedy destGred(prueba, 3);
-    Grasp testGrasp(prueba, 3);
+    Grasp testGrasp(prueba, 3, 3);
 
-    std::cout << "---GREEDY CONSTRUCTIVO---\n";
-    constGred.solve();
-    constGred.write(std::cout);
-    std::cout << "---GREEDY DESTRUCTIVO---\n";
-    destGred.solve();
-    destGred.write(std::cout);
+    // std::cout << "---GREEDY CONSTRUCTIVO---\n";
+    // constGred.solve();
+    // constGred.write(std::cout);
+    // std::cout << "---GREEDY DESTRUCTIVO---\n";
+    // destGred.solve();
+    // destGred.write(std::cout);
     std::cout << "---GRASP---\n";
     testGrasp.solve();
     testGrasp.write(std::cout);

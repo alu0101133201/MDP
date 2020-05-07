@@ -35,8 +35,10 @@ class vectors {
     void setDimension(int dim);
 
     void pushData(std::vector<float>);
+    void popData();
     void setSubVector(std::vector<float> swapElement, int swapIndex);
     void deleteData(int index);
+    void clear(void);
 
     std::vector<float> getSubvector(int i);
     std::ostream& write(std::ostream& os);

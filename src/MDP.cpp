@@ -103,3 +103,13 @@ float MDP::diversityFromVal(vectors solution, std::vector<float> deleted, std::v
   }
   return newValue;
 }
+
+
+float MDP::diversityFromAdd(vectors solution, std::vector<float> added, float oldValue) {
+  float newValue = (oldValue * (solution.getSize() - 1));
+  for (int i = 0; i < solution.getSize(); i++) {
+    if (solution.getSubvector(i) != added)
+      newValue += distBetVect(solution.getSubvector(i), added);
+  }
+  return (newValue / solution.getSize());
+}

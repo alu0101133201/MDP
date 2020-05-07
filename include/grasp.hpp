@@ -9,12 +9,21 @@
 
 #pragma once
 
+#include <utility> 
+
 #include "MDP.hpp"
 
 class Grasp : public MDP {
+  protected:
+    int cardinality;
+    std::vector<std::pair<std::vector<float>, float> > LRC;  // Atributo que almacena LRC
+
+    float construct();
+    void buildLRC();
+    void addLRC(std::vector<float>, float);
 
   public:
-    Grasp(vectors myVectors, int m);
+    Grasp(vectors myVectors, int m, int card);
     ~Grasp();
 
     float solve();
