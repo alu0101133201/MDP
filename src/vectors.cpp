@@ -98,4 +98,5 @@ void vectors::clear(void) {
     data[i].clear();
   }
   data.clear();
+  numberOfVectors = 0;
 }

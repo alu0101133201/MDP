@@ -26,6 +26,7 @@ class MDP {
     int stopNumber;
     float bestSolutionValue;
 
+
     std::vector<float> getCenter(vectors currentVectors);
     float distBetVect(std::vector<float> first, std::vector<float> second);
 
