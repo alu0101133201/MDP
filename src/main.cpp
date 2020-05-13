@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     vectors prueba(fileName);
     ConstructiveGreedy constGred(prueba, M);
     DestructiveGreedy destGred(prueba, M);
-    Grasp testGrasp(prueba, M, CARDINALITY, SINMEJORA, NUMBEROFITERATION);
+    Grasp testGrasp(prueba, M, CARDINALITY, ITERACIONES, NUMBEROFITERATION);
 
     // std::cout << "---GREEDY CONSTRUCTIVO---\n";
     // constGred.solve();

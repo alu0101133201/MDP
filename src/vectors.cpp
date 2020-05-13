@@ -80,14 +80,13 @@ void vectors::popData() {
   data.pop_back();
 }
 
-
-
 void vectors::deleteData(int index) {
   std::vector<std::vector<float>>::iterator iter = data.begin();
   std::advance(iter, index);
   numberOfVectors--;
   data.erase(iter);
 }
+
 
 void vectors::setSubVector(std::vector<float> swapElement, int swapIndex) {
   data[swapIndex] = swapElement;

@@ -67,23 +67,38 @@ std::ostream& MDP::write(std::ostream& os) {
 
 
 void MDP::localSearch(vectors& initialSolution, float& initialDistance) {
-  vectors bestNeighbour;
+  vectors bestNeighbour = initialSolution;
   float bestValue = initialDistance;
   vectors currentNeighbour;
   float currentValue;
+  bool changeFlag;
+  
+  // Vectore e índices que almacenan los cambios para poder modificar nuestro noInSolution
+  std::vector<float> added;
+  int deletedIndex;
 
+  do {
+    changeFlag = false;
+    for (int i = 0; i < noInSolution.getSize(); i++) {
+      for (int j = 0; j < initialSolution.getSize(); j++) {
+        currentNeighbour = generateNeighbour(initialSolution, noInSolution.getSubvector(i), j);
+        currentValue = diversityFromVal(currentNeighbour, initialSolution.getSubvector(j), noInSolution.getSubvector(i), initialDistance);
 
-  for (int i = 0; i < noInSolution.getSize(); i++) {
-    for (int j = 0; j < initialSolution.getSize(); j++) {
-      currentNeighbour = generateNeighbour(initialSolution, noInSolution.getSubvector(i), j);
-      currentValue = diversityFromVal(currentNeighbour, initialSolution.getSubvector(j), noInSolution.getSubvector(i), initialDistance);
-
-      if (currentValue > bestValue) {
-       bestValue = currentValue;
-       bestNeighbour = currentNeighbour;
+        if (currentValue > bestValue) {
+        bestValue = currentValue;
+        bestNeighbour = currentNeighbour;
+        added = initialSolution.getSubvector(j);
+        deletedIndex = i;
+        changeFlag = true;
+        }
       }
     }
-  }
+    // Actualizamos el atributo noInSolution
+    noInSolution.deleteData(deletedIndex);
+    noInSolution.pushData(added);
+    initialSolution = bestNeighbour;
+    initialDistance = bestValue;
+  } while (changeFlag);
   initialSolution = bestNeighbour;
   initialDistance = bestValue;
 }
