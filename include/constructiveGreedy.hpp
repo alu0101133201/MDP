@@ -14,6 +14,7 @@
 class ConstructiveGreedy : public MDP {
   private:
     int getFarPoint(std::vector<float> center, vectors points);
+    
 
   public:
     ConstructiveGreedy(vectors myVectors, int m);

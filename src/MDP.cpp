@@ -65,14 +65,15 @@ std::ostream& MDP::write(std::ostream& os) {
   return os;
 }
 
-
+void MDP::postProcessing() {
+  localSearch(bestSolution, bestSolutionValue);
+}
 void MDP::localSearch(vectors& initialSolution, float& initialDistance) {
   vectors bestNeighbour = initialSolution;
   float bestValue = initialDistance;
   vectors currentNeighbour;
   float currentValue;
   bool changeFlag;
-  
   // Vectore e índices que almacenan los cambios para poder modificar nuestro noInSolution
   std::vector<float> added;
   int deletedIndex;
@@ -131,4 +132,12 @@ float MDP::diversityFromAdd(vectors solution, std::vector<float> added, float ol
   return (newValue);
 }
 
+
+float MDP::getBestSolutionValue() {
+  return bestSolutionValue;
+}
+
+vectors MDP::getBestSolution() {
+  return bestSolution;
+}
 

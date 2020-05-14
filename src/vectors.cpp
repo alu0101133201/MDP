@@ -55,7 +55,7 @@ std::ostream& vectors::write(std::ostream& os) {
 }
 
 int vectors::getSize() {
-  return numberOfVectors;
+  return data.size();
 }
 
 int vectors::getDimension() {

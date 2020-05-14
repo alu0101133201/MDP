@@ -10,6 +10,7 @@
 #include "constructiveGreedy.hpp"
 #include "destructiveGreedy.hpp"
 #include "grasp.hpp"
+#include "localSearch.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -22,17 +23,20 @@ int main(int argc, char *argv[]) {
     vectors prueba(fileName);
     ConstructiveGreedy constGred(prueba, M);
     DestructiveGreedy destGred(prueba, M);
+    localSearch testLocal(prueba, M);
     Grasp testGrasp(prueba, M, CARDINALITY, ITERACIONES, NUMBEROFITERATION);
 
-    // std::cout << "---GREEDY CONSTRUCTIVO---\n";
-    // constGred.solve();
-    // constGred.write(std::cout);
-    // std::cout << "---GREEDY DESTRUCTIVO---\n";
-    // destGred.solve();
-    // destGred.write(std::cout);
-    std::cout << "---GRASP---\n";
-    testGrasp.solve();
-    testGrasp.write(std::cout);
+    std::cout << "---GREEDY CONSTRUCTIVO---\n";
+    constGred.solve();
+    constGred.write(std::cout);
+    std::cout << "---GREEDY DESTRUCTIVO---\n";
+    destGred.solve();
+    destGred.write(std::cout);
+    std::cout << "---LOCAL CON GREEDIES---\n";
+    testLocal.solve();
+    // std::cout << "---GRASP---\n";
+    // testGrasp.solve();
+    // testGrasp.write(std::cout);
 
 } catch(const char* e) {
   std::cout << e;

@@ -3,7 +3,7 @@
  * alu0101133201@ull.edu.es
  * Universidad de La Laguna
  * 22-04-20
- * Fichero que describe las clases que implementarán
+ * Fichero que describe las clases que definirá
  * el planteamiento grasp voraz del algoritmo MDP
  */
 

@@ -30,17 +30,20 @@ class MDP {
     std::vector<float> getCenter(vectors currentVectors);
     float distBetVect(std::vector<float> first, std::vector<float> second);
 
-    void localSearch(vectors&, float&);
     vectors generateNeighbour(vectors, std::vector<float>, int);
+    void localSearch(vectors&, float&);
 
   public:
     MDP(vectors myVectors, int m);
     ~MDP();
 
+    void postProcessing();
     float maxDiversity(vectors myVectors);
     float diversityFromVal(vectors, std::vector<float>, std::vector<float>, float);
     float diversityFromAdd(vectors, std::vector<float>, float);
 
+    float getBestSolutionValue();
+    vectors getBestSolution();
     // Método principal de resolución
     virtual float solve() = 0;
 

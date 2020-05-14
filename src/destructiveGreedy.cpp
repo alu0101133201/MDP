@@ -38,9 +38,11 @@ float DestructiveGreedy::solve() {
   buildInitialSol();
   do {
     std::vector<float> currentCenter = getCenter(bestSolution);
+    int nearPointIndex = getNearPoint(currentCenter, bestSolution);
+    noInSolution.pushData(bestSolution.getSubvector(nearPointIndex));
+    bestSolution.deleteData(nearPointIndex);
+  } while (bestSolution.getSize() != stopNumber);
+  bestSolutionValue = maxDiversity(bestSolution);
 
-    bestSolution.deleteData(getNearPoint(currentCenter, bestSolution));
-  } while (bestSolution.getSize() < stopNumber);
-  return (maxDiversity(bestSolution));
-
+  return (bestSolutionValue);
 }

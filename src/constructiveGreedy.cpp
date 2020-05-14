@@ -45,5 +45,8 @@ float ConstructiveGreedy::solve() {
     myAuxData.deleteData(indexOfFar);
     currentCenter = getCenter(bestSolution);
   } while (bestSolution.getSize() < stopNumber);
-  return (maxDiversity(bestSolution));
+  bestSolutionValue = maxDiversity(bestSolution);
+  noInSolution = myAuxData;
+
+  return (bestSolutionValue);
 }
