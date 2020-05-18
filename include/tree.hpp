@@ -15,16 +15,18 @@
 class tree {
   private:
     std::vector<node> generatedNodes;
-    std::vector<node> expansibleNodes;
     vectors myData;
 
     int currentDepth;
     int finalDepth;
 
   public:
+    std::vector<node> expansibleNodes;
+    
     tree(vectors myData, int);
     ~tree();
 
+    void expandNode(node nodo);
     void initializeTree();
     void calculateUpperBound(node);
     std::ostream& writeTree(std::ostream&);

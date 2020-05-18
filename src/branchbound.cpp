@@ -25,4 +25,8 @@ float branchBound::solve() {
   myTree.initializeTree();
   std::cout << "\n\n";
   myTree.writeTree(std::cout);
+  myTree.expandNode(myTree.expansibleNodes[0]);
+
+  myTree.writeTree(std::cout);
+
 }

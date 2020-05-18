@@ -20,12 +20,13 @@ class node {
 
     std::vector<float> vectorAdded;
 
-    vectors partialSolution;
-    vectors partialNoInSolution;
 
     float getBestDistance();
 
   public:
+    vectors partialSolution;
+    vectors partialNoInSolution;
+    
     node(int depth, int id, float partialSolutionValue, vectors partialSolution, 
         vectors pns, std::vector<float> addedNode);
     ~node();

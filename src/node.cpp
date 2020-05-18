@@ -59,7 +59,7 @@ void node::calculateUpperBound(int m) {
   partialSolutionValue = diversityFromAdd(partialSolution, vectorAdded, partialSolutionValue);
   float maxDist = getBestDistance();
 
-  upperBound = weightsToAdd * maxDist;
+  upperBound = (weightsToAdd * maxDist) + partialSolutionValue;
 }
 
 

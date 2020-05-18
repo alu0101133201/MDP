@@ -19,7 +19,6 @@ tree::~tree() {}
 void tree::initializeTree() {
   currentDepth++;
   for (int i = 0; i < myData.getSize() - finalDepth + 1; i++) {
-    float upperBound = 1555;
     std::vector<float> vectorAdded = myData.getSubvector(i);
 
     vectors partialSolution;
@@ -34,12 +33,40 @@ void tree::initializeTree() {
   }
 }
 
+void tree::expandNode(node nodo) {
+  for (int i = 0; i < expansibleNodes.size(); i++) {
+    if ((expansibleNodes[i].getDepth() == nodo.getDepth()) && (expansibleNodes[i].getId() == nodo.getId())) {
+      expansibleNodes[i] = expansibleNodes[expansibleNodes.size() - 1];
+      expansibleNodes.pop_back();
+      break;
+    }
+  }
+  
+  int numberOfNodes = (myData.getSize() - (finalDepth - nodo.partialSolution.getSize()) - nodo.getId());
+  for (int i = nodo.getId() + 1; i < nodo.getId() + 1 + numberOfNodes; i++) {
+    std::vector<float> vectorAdded = myData.getSubvector(i);
+    vectors partialSolution = nodo.getPartialSolution();
+    partialSolution.pushData(myData.getSubvector(i));
+
+    vectors partialNoInSolution = nodo.partialNoInSolution;
+    for (int j = 0; j < partialNoInSolution.getSize(); j++) {
+      if (partialNoInSolution.getSubvector(j) == myData.getSubvector(i))
+        partialNoInSolution.deleteData(j);
+    }
+
+    node auxNode(nodo.getDepth() + 1, i, nodo.getPartialSolutionValue(), partialSolution, partialNoInSolution, vectorAdded);
+    auxNode.calculateUpperBound(finalDepth);
+    generatedNodes.push_back(auxNode);
+    expansibleNodes.push_back(auxNode);
+  }
+}
 
 
 
 
 
 std::ostream& tree::writeTree(std::ostream& os) {
+  os << "\u001b[31mTree\u001b[0m\n";
   os << "CurrentDepth: " << currentDepth << " \n";
   os << "FinalDepth: " << finalDepth << "\n";
 
