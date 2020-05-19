@@ -8,10 +8,11 @@
  */
 #include "tree.hpp"
 
-tree::tree(vectors data, int myM) {
+tree::tree(vectors data, int myM, bool d) {
   myData = data;
   finalDepth = myM;
   currentDepth = 0;
+  depth = d;
 }
 
 tree::~tree() {}
@@ -34,12 +35,16 @@ void tree::initializeTree() {
 }
 
 void tree::expandNode(node nodo) {
+
   for (int i = 0; i < expansibleNodes.size(); i++) {
-    if ((expansibleNodes[i].getDepth() == nodo.getDepth()) && (expansibleNodes[i].getId() == nodo.getId())) {
+    if ((expansibleNodes[i].getDepth() == nodo.getDepth()) && (expansibleNodes[i].getId() == nodo.getId()) &&
+        (expansibleNodes[i].getUpperBound() == nodo.getUpperBound()) &&
+        (expansibleNodes[i].getPartialSolutionValue() == nodo.getPartialSolutionValue())) {
       expansibleNodes[i] = expansibleNodes[expansibleNodes.size() - 1];
       expansibleNodes.pop_back();
       break;
     }
+
   }
   
   int numberOfNodes = (myData.getSize() - (finalDepth - nodo.partialSolution.getSize()) - nodo.getId());
@@ -56,13 +61,50 @@ void tree::expandNode(node nodo) {
 
     node auxNode(nodo.getDepth() + 1, i, nodo.getPartialSolutionValue(), partialSolution, partialNoInSolution, vectorAdded);
     auxNode.calculateUpperBound(finalDepth);
+
+    // Comprobamos si el hijo es solución final
+    if ((nodo.getDepth() + 1) == finalDepth) {
+      if (auxNode.getUpperBound() > bestUpperBound) {
+        bestSolution = auxNode.getPartialSolution();
+        bestUpperBound = auxNode.getUpperBound();
+      }
+    } else {
+      expansibleNodes.push_back(auxNode);
+    }
     generatedNodes.push_back(auxNode);
-    expansibleNodes.push_back(auxNode);
   }
 }
 
+node tree::getNextToExpand(void) {
+  int minIndex;
+  if (!depth) {
+    float min = FLT_MAX;
+    for (int i = 0; i < expansibleNodes.size(); i++) {
+      if (expansibleNodes[i].getUpperBound() < min) {
+        min = expansibleNodes[i].getUpperBound();
+        minIndex = i;
+      }
+    }
+  } else {
+    float maxDepth = -1;
+    for (int i = 0; i < expansibleNodes.size(); i++) {
+      if (expansibleNodes[i].getDepth() > maxDepth) {
+        maxDepth = expansibleNodes[i].getDepth();
+        minIndex = i;
+      }
+    }
+  }
+  return expansibleNodes[minIndex];
+}
 
-
+void tree::prune(void) {
+  for (int i = 0; i < expansibleNodes.size(); i++) {
+    if (expansibleNodes[i].getUpperBound() < bestUpperBound) {
+      expansibleNodes[i] = expansibleNodes[expansibleNodes.size() - 1];
+      expansibleNodes.pop_back();
+    }
+  }
+}
 
 
 std::ostream& tree::writeTree(std::ostream& os) {
@@ -70,10 +112,8 @@ std::ostream& tree::writeTree(std::ostream& os) {
   os << "CurrentDepth: " << currentDepth << " \n";
   os << "FinalDepth: " << finalDepth << "\n";
 
-  os << "NODOS GENERADOS\n";
-  for (int i = 0; i < generatedNodes.size(); i++)
-    generatedNodes[i].write(os);
-  os << "NODOS EXPANSIBLES\n";
-  for (int i = 0; i < expansibleNodes.size(); i++)
-    expansibleNodes[i].write(os);  
+  os << "NODOS GENERADOS: " << generatedNodes.size() << "\n";
+  os << "Solución: \n";
+    bestSolution.write(std::cout);
+  return os;
 }

@@ -13,12 +13,16 @@
 
 class DestructiveGreedy : public MDP {
   private:
+    // Método que obtiene el punto más cercano a otro (generalmente el centro)
     int getNearPoint(std::vector<float> center, vectors points);
+    // Método que construye la solución inicial
     void buildInitialSol();
 
   public:
+    // Constructor y destructor
     DestructiveGreedy(vectors myVectors, int m);
     ~DestructiveGreedy();
 
+    // Método básico de resolución
     float solve();
 };

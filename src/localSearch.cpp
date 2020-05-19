@@ -17,11 +17,21 @@ localSearch::localSearch(vectors myVectors, int m):
 localSearch::~localSearch() {}
 
 float localSearch::solve() {
+  using namespace std::chrono;
+
+  high_resolution_clock::time_point t1 = high_resolution_clock::now();
   greedy1.solve();
   greedy1.postProcessing();
+  high_resolution_clock::time_point t2 = high_resolution_clock::now();
+  duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+  std::cout << "CONSTRUCTIVO " << time_span.count() << " seconds.\n";
   greedy1.write(std::cout);
+  t1 = high_resolution_clock::now();
   greedy2.solve();
   greedy2.postProcessing();
+  t2 = high_resolution_clock::now();
+  time_span = duration_cast<duration<double>>(t2 - t1);
+  std::cout << "DESTRUCTIVO " << time_span.count() << " seconds.\n";
   greedy2.write(std::cout);
   return (greedy1.getBestSolutionValue());
 }

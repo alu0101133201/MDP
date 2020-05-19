@@ -13,12 +13,15 @@
 
 class ConstructiveGreedy : public MDP {
   private:
+    // Mëtodo para obtener el punto más lejano de otro (generalmente le centro)
     int getFarPoint(std::vector<float> center, vectors points);
     
 
   public:
+    // Constructores y destructores
     ConstructiveGreedy(vectors myVectors, int m);
     ~ConstructiveGreedy();
 
+    // Método de resolución principal
     float solve();
 };

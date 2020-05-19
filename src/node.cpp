@@ -51,12 +51,14 @@ std::ostream& node::write(std::ostream& os) {
   partialSolution.write(os);
   std::cout << "PartialNoInSolution:\n";
   partialNoInSolution.write(os);
+  return os;
 }
 
 void node::calculateUpperBound(int m) {
+  partialSolutionValue = diversityFromAdd(partialSolution, vectorAdded, partialSolutionValue);
+  
   int weightsToAdd = (partialSolution.getSize() * (m - partialSolution.getSize()));
   weightsToAdd += ((m - partialSolution.getSize()) * ((m - partialSolution.getSize()) - 1)) / 2;
-  partialSolutionValue = diversityFromAdd(partialSolution, vectorAdded, partialSolutionValue);
   float maxDist = getBestDistance();
 
   upperBound = (weightsToAdd * maxDist) + partialSolutionValue;
@@ -85,7 +87,6 @@ float node::getBestDistance() {
   }
   return bestOut;
 }
-
 
 
 float node::distBetVect(std::vector<float> first, std::vector<float> second) {

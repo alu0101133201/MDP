@@ -18,7 +18,7 @@
 
 class Grasp : public MDP {
   protected:
-    int cardinality;
+    int cardinality;  // Cardinalidad del LRC
     std::vector<std::pair<std::vector<float>, float> > LRC;  // Atributo que almacena LRC
 
     // Atributos de criterio de parada
@@ -28,13 +28,18 @@ class Grasp : public MDP {
 
     bool stopCriteria(int);
 
+    // Método que construye la solución
     float construct();
+    // Método que construye el LRC
     void buildLRC();
+    // Método que añade un vector al LRC
     void addLRC(std::vector<float>, float);
 
   public:
+    // Constructor y destructor
     Grasp(vectors myVectors, int m, int cardi, int stopCriteria, int maxIterations);
     ~Grasp();
 
+    // Método principal de resolución
     float solve();
 };

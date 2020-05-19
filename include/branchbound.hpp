@@ -10,19 +10,25 @@
 #pragma once
 
 #include "MDP.hpp"
+#include "grasp.hpp"
 #include "constructiveGreedy.hpp"
+#include "destructiveGreedy.hpp"
+
 #include "tree.hpp"
 
 class branchBound : public MDP {
   private:
-    tree myTree;
+    tree myTree;  // Árbol para ejecutar el algoritmo
+    // Algoritmos auxiliares para obtener las cotas inicialles
     ConstructiveGreedy greedy1;
-
-    float currentBound;
+    DestructiveGreedy greedy2;
+    Grasp graspAlg;
     
   public:
-    branchBound(vectors myVectors, int m);
+    // Constructor y destructor
+    branchBound(vectors myVectors, int m, int cardi, int stopCriteria, int maxIterations, bool depth);
     ~branchBound();
 
+    // Método de resolución del problema
     float solve();
 };

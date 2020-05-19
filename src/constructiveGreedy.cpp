@@ -33,14 +33,9 @@ int ConstructiveGreedy::getFarPoint(std::vector<float> center, vectors points) {
 float ConstructiveGreedy::solve() {
   vectors myAuxData = vectorsData;  
   std::vector<float> currentCenter = getCenter(myAuxData);
-  // std::cout << "\nPrimer centro:\n";
-  // for (int i= 0; i < currentCenter.size(); i++)
-  //   std::cout << currentCenter[i] << " ";
-  // std::cout << "\n";
 
   do {
     int indexOfFar = getFarPoint(currentCenter, myAuxData);
-
     bestSolution.pushData(myAuxData.getSubvector(indexOfFar));
     myAuxData.deleteData(indexOfFar);
     currentCenter = getCenter(bestSolution);
