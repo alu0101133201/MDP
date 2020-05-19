@@ -29,35 +29,35 @@ int main(int argc, char *argv[]) {
     DestructiveGreedy destGred(prueba, atoi(argv[2]));
     localSearch testLocal(prueba, atoi(argv[2]));
     Grasp testGrasp(prueba, atoi(argv[2]), atoi(argv[3]), ITERACIONES, atoi(argv[4]));
-    branchBound bab(prueba, atoi(argv[2]), atoi(argv[3]), ITERACIONES, atoi(argv[4]), true);
+    branchBound bab(prueba, atoi(argv[2]), atoi(argv[3]), ITERACIONES, atoi(argv[4]), false);
 
-    std::cout << "---GREEDY CONSTRUCTIVO---\n";
+    // std::cout << "---GREEDY CONSTRUCTIVO---\n";
 
-    constGred.solve();
-    constGred.write(std::cout);
-    std::cout << "---GREEDY DESTRUCTIVO---\n";
-    destGred.solve();
-    destGred.write(std::cout);
-    std::cout << "---LOCAL CON GREEDIES---\n";
+    // constGred.solve();
+    // constGred.write(std::cout);
+    // std::cout << "---GREEDY DESTRUCTIVO---\n";
+    // destGred.solve();
+    // destGred.write(std::cout);
+    // std::cout << "---LOCAL CON GREEDIES---\n";
 
-    // high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    // // high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
-    testLocal.solve();
-    // high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    // duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-    // std::cout << "It took me " << time_span.count() << " seconds.\n";
+    // testLocal.solve();
+    // // high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    // // duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+    // // std::cout << "It took me " << time_span.count() << " seconds.\n";
 
-    std::cout << "---GRASP---\n";
-    testGrasp.solve();
-    testGrasp.write(std::cout);
+    // std::cout << "---GRASP---\n";
+    // testGrasp.solve();
+    // testGrasp.write(std::cout);
 
     std::cout << "---RAMIFICACIÓN Y PODA---\n";
-    // high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
     bab.solve();
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+    std::cout << "It took me " << time_span.count() << " seconds.\n";
     bab.write(std::cout);
-    // high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    // duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-    // std::cout << "It took me " << time_span.count() << " seconds.\n";
 
 } catch(const char* e) {
   std::cout << e;

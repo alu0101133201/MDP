@@ -35,8 +35,8 @@ class node {
     ~node();
 
     // Setters básicos
-    void setDepth(int);
-    void setId(int);
+      void setDepth(int);
+      void setId(int);
 
     // Getters básicos
     int getDepth(void);

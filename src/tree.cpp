@@ -75,26 +75,44 @@ void tree::expandNode(node nodo) {
   }
 }
 
+// --- MODIFICADO ---
+// Tras la modificación este método encuentra el segundo mejor nodo y lo expande. Anteriormente
+// seleccionada el mejor nodo
 node tree::getNextToExpand(void) {
-  int minIndex;
+  int firstMinIndex = 0;
+  int secondMinIndex = 0;
+
   if (!depth) {
-    float min = FLT_MAX;
+    float firstMin = FLT_MAX;
+    float secondMin = FLT_MAX;
     for (int i = 0; i < expansibleNodes.size(); i++) {
-      if (expansibleNodes[i].getUpperBound() < min) {
-        min = expansibleNodes[i].getUpperBound();
-        minIndex = i;
+      if (expansibleNodes[i].getUpperBound() < firstMin) {
+        secondMinIndex = firstMinIndex;
+        secondMin = firstMin;
+        firstMin = expansibleNodes[i].getUpperBound();
+        firstMinIndex = i;
+      } else if (expansibleNodes[i].getUpperBound() < secondMin) {
+        secondMin = expansibleNodes[i].getUpperBound();
+        secondMinIndex = i;
       }
     }
   } else {
-    float maxDepth = -1;
+    float firstMaxDepth = -1;
+    float secondMaxDepth = -1;
     for (int i = 0; i < expansibleNodes.size(); i++) {
-      if (expansibleNodes[i].getDepth() > maxDepth) {
-        maxDepth = expansibleNodes[i].getDepth();
-        minIndex = i;
+      if (expansibleNodes[i].getDepth() > firstMaxDepth) {
+        secondMinIndex = firstMinIndex;
+        secondMaxDepth = firstMaxDepth;
+        firstMaxDepth = expansibleNodes[i].getDepth();
+        firstMinIndex = i;
+      } else if (expansibleNodes[i].getDepth() > secondMaxDepth) {
+        secondMinIndex = expansibleNodes[i].getDepth();
+        secondMaxDepth = i;
       }
     }
   }
-  return expansibleNodes[minIndex];
+
+  return expansibleNodes[secondMinIndex];
 }
 
 void tree::prune(void) {
